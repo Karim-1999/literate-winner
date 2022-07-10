@@ -1,0 +1,30 @@
+@function random-hex(){
+    $hex: '';
+    $lista: 'a', 'b', 'c', 'd', 'e', 'f';
+    
+    //@for $i from 0 to 6 (se usassi il ciclo for)
+    @while str-length($hex) < 6 { // promemoria personale str-length funzione integrata sass(lunghezza stringa)
+        $numeri: random(16) - 1; // 10
+        @if $numeri > 9 {
+            $calc: $numeri - 9; // 1
+            $numeri: nth($lista, $calc); // a 
+        }
+        $hex: str-insert($hex, ("" + $numeri), 0);
+    }
+    @return unquote('#' + $hex)
+}
+
+.container{
+    display: flex;
+    height: 50vh;
+    .col{
+        flex: 1;
+        @for $i from 1 to 13{
+            &:nth-child(#{$i}){
+                background-color: random-hex();
+            }
+        } 
+    }
+}
+
+
