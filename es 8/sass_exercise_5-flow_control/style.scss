@@ -1,0 +1,97 @@
+%text {
+    color: green;
+    border-bottom: 1px solid blue;
+    align-self: center;
+    width: fit-content;
+}
+
+@function px2rem($val) {
+    $rem: calc($val / 16)+unquote('rem');
+    @return $rem;
+}
+
+@mixin article-style($bdc, $fs, $color) {
+    border-color: $bdc;
+    font-size: $fs;
+    color: $color;
+}
+
+div {
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+        @extend %text;
+    }
+
+    h2 {
+        @extend %text;
+        padding: 1rem;
+        border: 1px solid red;
+    }
+
+    section {
+        display: flex;
+        margin: 0 1rem 1rem 1rem;
+
+        article {
+            border: 1px solid;
+            width: 100%;
+            text-align: center;
+        }
+
+        article:nth-child(odd) {
+            @include article-style($bdc: green, $fs: 1rem, $color: blue);
+        }
+
+        article:nth-child(even) {
+            @include article-style($bdc: green, $fs: 1rem, $color: red);
+        }
+
+        &:last-child {
+            article {
+                @include article-style($bdc: blue, $fs: 24px, $color: green);
+            }
+        }
+
+        div {
+            display: initial;
+            height: px2rem(45);
+            width: px2rem(45);
+        }
+
+        &:nth-of-type(2) {
+            justify-content: space-between;
+        }
+    }
+}
+
+$sizes: 1rem, 2rem, 3rem;
+
+@each $size in $sizes {
+    .fs-#{$size} {
+        font-size: $size;
+        ;
+    }
+}
+
+$number: 0;
+
+@for $i from 1 through 19 {
+    $number: $number +5;
+
+    @if $i  !=10 {
+        body div section:nth-of-type(2) div:nth-child(#{$i}) {
+            background-color: darken($color: white, $amount: $number);
+            color: lighten($color: #000000, $amount: $number);
+        }
+    }
+
+    @else {
+        body div section:nth-of-type(2) div:nth-child(#{$i}) {
+            background-color: blue;
+            color: red;
+        }
+    }
+}
