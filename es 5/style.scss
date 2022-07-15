@@ -3,7 +3,7 @@
     $lista: 'a', 'b', 'c', 'd', 'e', 'f';
     
     //@for $i from 0 to 6 (se usassi il ciclo for)
-    @while str-length($hex) < 6 { // promemoria personale str-length funzione integrata sass(lunghezza stringa)
+    @while str-length($hex) < 6 { 
         $numeri: random(16) - 1; // 10
         @if $numeri > 9 {
             $calc: $numeri - 9; // 1
